@@ -69,5 +69,5 @@ ggplot(data = df, mapping = aes(x = artiste, y = streams)) +
     ## change text size of subtitle and give space between subtitle and title (margin)
     plot.subtitle = element_textbox_simple(size = 12.5, margin = margin(t = 4.5)))
 
-### Saving the plot
+##### Saving the plot
 ggsave(filename="most_streamed_artistes.png", width =9.3 , height=8, units="in", bg="white")
