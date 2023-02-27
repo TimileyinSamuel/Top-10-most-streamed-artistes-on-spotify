@@ -6,6 +6,38 @@ library(ggimage)
 library(showtext)
 library(ggtext)
 
+##### Getting the data from the web
+##### To get the data needed for this plot, I will scrape it from a website using the codes below
+url <- "https://ledgernote.com/blog/interesting/most-streamed-artists-ever/"
+
+## reading the html and extracting the table
+df <- url |> 
+  read_html() |> 
+  html_element(css = ".mvt-content") |> 
+  html_table() |> 
+  janitor::clean_names()
+
+### Renaming columns
+df <- df |> 
+  rename(ariste = artist,
+         streams = all_time_spotify_streams)
+
+## Removing string from streams columns
+## To remove the "billion" behind the numbers
+df$streams <- 
+  sub(pattern = "^([0-9.]+)\\s+billion$", replacement = "\\1", x = df$streams)
+
+## converting the streams column into numeric
+df <- df |> 
+  mutate(streams = as.numeric(streams))
+### The data set has been scraped from the web and can now be used for plotting.
+
+##### Given that the data is from the web and will be updated regularly, I
+##### decided to upload the current data set to my github repository. In case
+##### you want to use the exact data I used in this project,
+##### or the website changes or becomes unavailable for any reason, it can be imported
+##### directly from the github link provided below Importing Data set
+
 ##### Importing Data set
 df <- read_csv2("https://raw.githubusercontent.com/TimileyinSamuel/Top-10-most-streamed-artistes-on-spotify/main/most_streamed_artistes.csv") |> 
       janitor::clean_names()
