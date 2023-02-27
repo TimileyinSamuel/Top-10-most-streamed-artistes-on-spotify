@@ -2,6 +2,7 @@
 
 ##### Importing Libraries
 library(tidyverse)
+library(rvest)
 library(ggimage)
 library(showtext)
 library(ggtext)
